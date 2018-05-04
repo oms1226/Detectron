@@ -1,4 +1,4 @@
-# oms1226
+# oms1226 history
 - C:\_android\workspace\Detectron\docker>docker build -t detectron:origin .
 - C:\_android\workspace\Detectron\docker>docker images
 ```
@@ -52,11 +52,31 @@ Traceback (most recent call last):
     self._handle = _dlopen(self._name, mode)
 OSError: libcuda.so.1: cannot open shared object file: No such file or directory
 ```
-아래 링크를 참조하여 docker/Dockerfile 에서 FROM을 cpu image로 수정해서 시도 중임
+아래 링크를 참조하여 docker/Dockerfile 에서 FROM을 cpu image로 수정해서 시도함
 - https://hub.docker.com/r/caffe2ai/caffe2/
 - https://github.com/caffe2/caffe2/tree/master/docker/caffe2/ubuntu-16.04-cpu-all-options
 - https://hub.docker.com/r/caffe2/caffe2/tags/
 - C:\_android\workspace\Detectron\docker>docker build -t detectron:cpuimage .
+- C:\_android\workspace\Detectron\docker>docker run -it detectron:cpuimage bash
+```
+root@d76b610d0f4f:/detectron# python2 tools/infer_simple.py \
+>     --cfg configs/12_2017_baselines/e2e_mask_rcnn_R-101-FPN_2x.yaml \
+>     --output-dir /tmp/detectron-visualizations \
+>     --image-ext jpg \
+>     --wts https://s3-us-west-2.amazonaws.com/detectron/35861858/12_2017_baselines/e2e_mask_rcnn_R-101-FPN_2x.yaml.02_32_51.SgT4y1cO/output/train/coco_2014_train:coco_2014_valminusminival/generalized_rcnn/model_final.pkl \
+>     demo
+WARNING:root:This caffe2 python run does not have GPU support. Will run in CPU only mode.
+WARNING:root:Debug message: No module named caffe2_pybind11_state_gpu
+Traceback (most recent call last):
+  File "tools/infer_simple.py", line 49, in <module>
+    c2_utils.import_detectron_ops()
+  File "/detectron/lib/utils/c2.py", line 41, in import_detectron_ops
+    detectron_ops_lib = envu.get_detectron_ops_lib()
+  File "/detectron/lib/utils/env.py", line 71, in get_detectron_ops_lib
+    ('Detectron ops lib not found; make sure that your Caffe2 '
+AssertionError: Detectron ops lib not found; make sure that your Caffe2 version includes Detectron module
+```
+"Detectron ops lib not found; make sure that your Caffe2 version includes Detectron module" 원인을 찾아야 되는 상태!
 
 # Detectron
 
