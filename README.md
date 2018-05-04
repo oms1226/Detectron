@@ -1,3 +1,54 @@
+# oms1226
+C:\_android\workspace\Detectron\docker>docker build -t detectron:origin .
+C:\_android\workspace\Detectron\docker>docker images
+REPOSITORY          TAG                                       IMAGE ID            CREATED             SIZE
+detectron           origin                                    22b2c8c0f05c        4 minutes ago       4.14GB
+caffe2/caffe2       snapshot-py2-cuda9.0-cudnn7-ubuntu16.04   9ae3e8ea7508        3 months ago        3.87GB
+C:\_android\workspace\Detectron\docker>docker run -it detectron:origin bash
+
+root@25afe8dfcffa:/detectron# python2 tools/infer_simple.py \
+>     --cfg configs/12_2017_baselines/e2e_mask_rcnn_R-101-FPN_2x.yaml \
+>     --output-dir /tmp/detectron-visualizations \
+>     --image-ext jpg \
+>     --wts https://s3-us-west-2.amazonaws.com/detectron/35861858/12_2017_baselines/e2e_mask_rcnn_R-101-FPN_2x.yaml.02_32_51.SgT4y1cO/output/train/coco_2014_train:coco_2014_valminusminival/generalized_rcnn/model_final.pkl \
+>     demo
+WARNING:root:This caffe2 python run does not have GPU support. Will run in CPU only mode.
+WARNING:root:Debug message: libcuda.so.1: cannot open shared object file: No such file or directory
+Found Detectron ops lib: /usr/local/caffe2_build/lib/libcaffe2_detectron_ops_gpu.so
+Traceback (most recent call last):
+  File "tools/infer_simple.py", line 49, in <module>
+    c2_utils.import_detectron_ops()
+  File "/detectron/lib/utils/c2.py", line 42, in import_detectron_ops
+    dyndep.InitOpsLibrary(detectron_ops_lib)
+  File "/usr/local/caffe2_build/caffe2/python/dyndep.py", line 50, in InitOpsLibrary
+    _init_impl(name)
+  File "/usr/local/caffe2_build/caffe2/python/dyndep.py", line 63, in _init_impl
+    ctypes.CDLL(path)
+  File "/usr/lib/python2.7/ctypes/__init__.py", line 362, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: libcuda.so.1: cannot open shared object file: No such file or directory
+root@25afe8dfcffa:/detectron# python2 tools/test_net.py \
+>     --cfg configs/12_2017_baselines/e2e_mask_rcnn_R-101-FPN_2x.yaml \
+>     --multi-gpu-testing \
+>     TEST.WEIGHTS https://s3-us-west-2.amazonaws.com/detectron/35861858/12_2017_baselines/e2e_mask_rcnn_R-101-FPN_2x.yaml.02_32_51.SgT4y1cO/output/train/coco_2014_train:coco_2014_valminusminival/generalized_rcnn/model_final.pkl \
+>     NUM_GPUS 0
+WARNING:root:This caffe2 python run does not have GPU support. Will run in CPU only mode.
+WARNING:root:Debug message: libcuda.so.1: cannot open shared object file: No such file or directory
+Found Detectron ops lib: /usr/local/caffe2_build/lib/libcaffe2_detectron_ops_gpu.so
+Traceback (most recent call last):
+  File "tools/test_net.py", line 42, in <module>
+    utils.c2.import_detectron_ops()
+  File "/detectron/lib/utils/c2.py", line 42, in import_detectron_ops
+    dyndep.InitOpsLibrary(detectron_ops_lib)
+  File "/usr/local/caffe2_build/caffe2/python/dyndep.py", line 50, in InitOpsLibrary
+    _init_impl(name)
+  File "/usr/local/caffe2_build/caffe2/python/dyndep.py", line 63, in _init_impl
+    ctypes.CDLL(path)
+  File "/usr/lib/python2.7/ctypes/__init__.py", line 362, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: libcuda.so.1: cannot open shared object file: No such file or directory
+
+
 # Detectron
 
 Detectron is Facebook AI Research's software system that implements state-of-the-art object detection algorithms, including [Mask R-CNN](https://arxiv.org/abs/1703.06870). It is written in Python and powered by the [Caffe2](https://github.com/caffe2/caffe2) deep learning framework.
