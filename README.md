@@ -1,11 +1,15 @@
 # oms1226
-C:\_android\workspace\Detectron\docker>docker build -t detectron:origin .
-C:\_android\workspace\Detectron\docker>docker images
+- C:\_android\workspace\Detectron\docker>docker build -t detectron:origin .
+- C:\_android\workspace\Detectron\docker>docker images
+```
 REPOSITORY          TAG                                       IMAGE ID            CREATED             SIZE
 detectron           origin                                    22b2c8c0f05c        4 minutes ago       4.14GB
 caffe2/caffe2       snapshot-py2-cuda9.0-cudnn7-ubuntu16.04   9ae3e8ea7508        3 months ago        3.87GB
-C:\_android\workspace\Detectron\docker>docker run -it detectron:origin bash
+```
+- C:\_android\workspace\Detectron\docker>docker run -it detectron:origin bash
 
+- 아래와 같은 에러가 나는 상태임!
+```
 root@25afe8dfcffa:/detectron# python2 tools/infer_simple.py \
 >     --cfg configs/12_2017_baselines/e2e_mask_rcnn_R-101-FPN_2x.yaml \
 >     --output-dir /tmp/detectron-visualizations \
@@ -47,7 +51,7 @@ Traceback (most recent call last):
   File "/usr/lib/python2.7/ctypes/__init__.py", line 362, in __init__
     self._handle = _dlopen(self._name, mode)
 OSError: libcuda.so.1: cannot open shared object file: No such file or directory
-
+```
 
 # Detectron
 
