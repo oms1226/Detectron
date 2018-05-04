@@ -55,6 +55,7 @@ OSError: libcuda.so.1: cannot open shared object file: No such file or directory
 아래 링크를 참조하여 docker/Dockerfile 에서 FROM을 cpu image로 수정해서 시도 중임
 - https://hub.docker.com/r/caffe2ai/caffe2/
 - https://github.com/caffe2/caffe2/tree/master/docker/caffe2/ubuntu-16.04-cpu-all-options
+- https://hub.docker.com/r/caffe2/caffe2/tags/
 - C:\_android\workspace\Detectron\docker>docker build -t detectron:cpuimage .
 
 # Detectron
