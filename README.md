@@ -8,7 +8,7 @@ caffe2/caffe2       snapshot-py2-cuda9.0-cudnn7-ubuntu16.04   9ae3e8ea7508      
 ```
 - C:\_android\workspace\Detectron\docker>docker run -it detectron:origin bash
 
-- 아래와 같은 에러가 나는 상태임!
+- 아래와 같은 에러가 발생함
 ```
 root@25afe8dfcffa:/detectron# python2 tools/infer_simple.py \
 >     --cfg configs/12_2017_baselines/e2e_mask_rcnn_R-101-FPN_2x.yaml \
@@ -52,9 +52,11 @@ Traceback (most recent call last):
     self._handle = _dlopen(self._name, mode)
 OSError: libcuda.so.1: cannot open shared object file: No such file or directory
 ```
-
-# Detectron
-
+- 아래와 같은 에러가 발생함
+-- 아래 링크를 참조하여 docker/Dockerfile 에서 FROM을 cpu image로 수정해서 시도 중임
+-- https://hub.docker.com/r/caffe2ai/caffe2/
+-- https://github.com/caffe2/caffe2/tree/master/docker/caffe2/ubuntu-16.04-cpu-all-options
+-- C:\_android\workspace\Detectron\docker>docker build -t detectron:cpuimage .
 Detectron is Facebook AI Research's software system that implements state-of-the-art object detection algorithms, including [Mask R-CNN](https://arxiv.org/abs/1703.06870). It is written in Python and powered by the [Caffe2](https://github.com/caffe2/caffe2) deep learning framework.
 
 At FAIR, Detectron has enabled numerous research projects, including: [Feature Pyramid Networks for Object Detection](https://arxiv.org/abs/1612.03144), [Mask R-CNN](https://arxiv.org/abs/1703.06870), [Detecting and Recognizing Human-Object Interactions](https://arxiv.org/abs/1704.07333), [Focal Loss for Dense Object Detection](https://arxiv.org/abs/1708.02002), [Non-local Neural Networks](https://arxiv.org/abs/1711.07971), [Learning to Segment Every Thing](https://arxiv.org/abs/1711.10370), [Data Distillation: Towards Omni-Supervised Learning](https://arxiv.org/abs/1712.04440), [DensePose: Dense Human Pose Estimation In The Wild](https://arxiv.org/abs/1802.00434), and [Group Normalization](https://arxiv.org/abs/1803.08494).
