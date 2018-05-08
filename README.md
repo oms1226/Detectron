@@ -77,7 +77,10 @@ Traceback (most recent call last):
 AssertionError: Detectron ops lib not found; make sure that your Caffe2 version includes Detectron module
 ```
 "Detectron ops lib not found; make sure that your Caffe2 version includes Detectron module" 원인을 찾아야 되는 상태!
-
+위 에러를 발생시키는 함수는 아래 함수로 판단되기에 찾아서 막아보자!
+```
+def get_detectron_ops_lib()
+```
 # Detectron
 
 Detectron is Facebook AI Research's software system that implements state-of-the-art object detection algorithms, including [Mask R-CNN](https://arxiv.org/abs/1703.06870). It is written in Python and powered by the [Caffe2](https://github.com/caffe2/caffe2) deep learning framework.
